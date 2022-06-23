@@ -1,15 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cookkug/controllers/user_controller.dart';
+import 'package:cookkug/screens/recipedetail.dart';
 import 'package:cookkug/screens/user_list_screen.dart';
+import 'package:cookkug/screens/search_screen.dart';
+import 'package:get/get.dart';
 
 import '../constants.dart';
 import '../controllers/cook_controller.dart';
 import '../models/cook/cook.dart';
 import '../widgets/cooking_card.dart';
 import 'package:flutter/material.dart';
+import '../models/cook/recipe.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);git 
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,13 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Search()
+                ),
+              );
+            },
             icon: Icon(Icons.search, color: kMainColor),
           ),
           IconButton(
@@ -52,61 +62,77 @@ class HomeScreen extends StatelessWidget {
 }
 
 Widget recipeRecommendedArea(BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
-    padding: const EdgeInsets.all(20),
-    width: double.infinity,
-    height: MediaQuery.of(context).size.width * 21 / 20,
-    decoration: BoxDecoration(
-      color: kWhiteColor,
-      borderRadius: BorderRadius.circular(30),
-      image: const DecorationImage(
-        fit: BoxFit.fitHeight,
-        image: AssetImage('assets/images/today_recipe_image.jpeg'),
-      ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        RichText(
-          text: TextSpan(
-            style: TextStyle(
-              fontSize: 28,
-              color: kWhiteColor,
-              fontWeight: FontWeight.bold,
-            ),
-            children: [
-              const TextSpan(text: '쿡꾹이 추천하는\n'),
-              TextSpan(
-                text: '오늘의 ',
-                style: TextStyle(
-                  color: kMainColor,
-                ),
-              ),
-              const TextSpan(text: '요리레시피'),
-            ],
-          ),
+
+  final Recipe recipe;
+  return GestureDetector(
+    onTap: (){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RecipeDetail(recipe:,)
         ),
-        const Spacer(),
-        Row(
-          children: [
-            const Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: kWhiteColor,
-              size: 14,
-            ),
-            Text(
-              '꾹 눌러 추천받기',
+      );
+    },
+
+    child: Container(
+
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
+      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      height: MediaQuery.of(context).size.width * 21 / 20,
+      decoration: BoxDecoration(
+        color: kWhiteColor,
+        borderRadius: BorderRadius.circular(30),
+        image: const DecorationImage(
+          fit: BoxFit.fitHeight,
+          image: AssetImage('assets/images/today_recipe_image.jpeg'),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+
+          RichText(
+            text: TextSpan(
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 28,
                 color: kWhiteColor,
                 fontWeight: FontWeight.bold,
               ),
+              children: [
+                const TextSpan(text: '쿡꾹이 추천하는\n'),
+                TextSpan(
+                  text: '오늘의 ',
+                  style: TextStyle(
+                    color: kMainColor,
+                  ),
+                ),
+                const TextSpan(text: '요리레시피'),
+              ],
             ),
-          ],
-        ),
-      ],
+          ),
+          const Spacer(),
+          Row(
+            children: [
+
+              const Spacer(),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: kWhiteColor,
+                size: 14,
+              ),
+              Text(
+                '꾹 눌러 추천받기',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: kWhiteColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

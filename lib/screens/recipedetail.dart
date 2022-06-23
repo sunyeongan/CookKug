@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../controllers/cook_controller.dart';
+import '../models/cook/cook.dart';
+import '../widgets/cooking_card.dart';
+import '../models/cook/recipe.dart';
+
 class RecipeDetail extends StatelessWidget {
-  const RecipeDetail({Key? key}) : super(key: key);
+  final Recipe recipe;
+  const RecipeDetail({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class RecipeDetail extends StatelessWidget {
 
       body: ListView(
         children: [
-          getRecipeDetail(context)
+          getRecipeDetail(context, recipe)
         ]
       )
 
@@ -42,7 +48,7 @@ class RecipeDetail extends StatelessWidget {
 
 
 
-Widget getRecipeDetail(BuildContext context) {
+Widget getRecipeDetail(BuildContext context, Recipe recipe) {
 
   return Padding(
 
@@ -51,18 +57,15 @@ Widget getRecipeDetail(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
-
           Container(
             margin: EdgeInsets.all(10),
-            child: Image.asset('assets/food1.png'),
+            child: Image.asset('assets/images/food1.png'),
           ),
           Center(
-
             child:Text(
-              '명란 아보카도덮밥',
+              recipe.recipeName,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-
           ),
           SizedBox(
             height: 20.0,
@@ -70,7 +73,7 @@ Widget getRecipeDetail(BuildContext context) {
           Center(
             child:Text(
               '간단하게면서도 건강까지 챙길 수 있는 초간단 덮밥 레시피에요!',
-                style: TextStyle(fontSize: 13)
+                style: TextStyle(fontSize: 12)
             ),
           ),
           SizedBox(
@@ -83,9 +86,9 @@ Widget getRecipeDetail(BuildContext context) {
 
             Container(
 
-              margin: EdgeInsets.only(left:20),
+              margin: EdgeInsets.only(left:10),
               padding: EdgeInsets.all(15),
-              width:80,
+              width:100,
               height:50,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -103,7 +106,7 @@ Widget getRecipeDetail(BuildContext context) {
               ),
               child: Text(
                 '1인분',
-                style: TextStyle(fontSize: 13),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
 
               ),
@@ -112,8 +115,8 @@ Widget getRecipeDetail(BuildContext context) {
             Container(
 
               padding: EdgeInsets.all(15),
-              margin: EdgeInsets.only(left:20),
-              width:80,
+              margin: EdgeInsets.only(left:10),
+              width:100,
               height:50,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -130,17 +133,18 @@ Widget getRecipeDetail(BuildContext context) {
                 ],
               ),
               child: Text(
-                '15분이내',
-                style: TextStyle(fontSize: 13),
+                recipe.cookingTime,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
+
 
               ),
             ),
 
             Container(
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.only(left:20),
-              width:80,
+              padding: EdgeInsets.all(16),
+              margin: EdgeInsets.only(left:10),
+              width:100,
               height:50,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -157,7 +161,7 @@ Widget getRecipeDetail(BuildContext context) {
               ),
               child: Text(
                 '쉬워요!',
-                style: TextStyle(fontSize: 13),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
 
               ),
@@ -176,7 +180,7 @@ Widget getRecipeDetail(BuildContext context) {
 
           Text(
             '준비해주세요!',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
           ),
 
 
@@ -184,109 +188,173 @@ Widget getRecipeDetail(BuildContext context) {
             height: 20.0,
           ),
 
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
+          Column(
+            children: [
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
 
-                  margin: EdgeInsets.only(left:10),
-                  padding: EdgeInsets.all(6),
-                  width:70,
-                  height:25,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 3.0,
+                      margin: EdgeInsets.only(left:10),
+                      padding: EdgeInsets.all(6),
+                      width:70,
+                      height:25,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 3.0,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Text(
-                    '명란 2스푼',
-                    style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.center,
+                      child: Text(
+                        '명란2스푼',
+                        style: TextStyle(fontSize: 10),
+                        textAlign: TextAlign.center,
 
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left:15),
-                  padding: EdgeInsets.all(6),
-                  width:70,
-                  height:25,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 3.0,
                       ),
-                    ],
-                  ),
-                  child: Text(
-                    '아보카도 1개',
-                    style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.center,
-
-                  ),
-                ),
-
-                Container(
-                  margin: EdgeInsets.only(left:15),
-                  padding: EdgeInsets.all(6),
-                  width:70,
-                  height:25,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 3.0,
+                    Container(
+                      margin: EdgeInsets.only(left:15),
+                      padding: EdgeInsets.all(6),
+                      width:70,
+                      height:25,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 3.0,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Text(
-                    '계란 1알',
-                    style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.center,
+                      child: Text(
+                        '아보카도2개',
+                        style: TextStyle(fontSize: 10),
+                        textAlign: TextAlign.center,
 
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left:15),
-                  padding: EdgeInsets.all(6),
-                  width:70,
-                  height:25,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+                      ),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 3.0,
+
+                    Container(
+                      margin: EdgeInsets.only(left:15),
+                      padding: EdgeInsets.all(6),
+                      width:70,
+                      height:25,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 3.0,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Text(
-                    '새싹채소',
-                    style: TextStyle(fontSize: 10),
-                    textAlign: TextAlign.center,
+                      child: Text(
+                        '계란 1알',
+                        style: TextStyle(fontSize: 10),
+                        textAlign: TextAlign.center,
 
-                  ),
-                ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left:15),
+                      padding: EdgeInsets.all(6),
+                      width:70,
+                      height:25,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 3.0,
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        '새싹채소',
+                        style: TextStyle(fontSize: 10),
+                        textAlign: TextAlign.center,
 
-              ],
+                      ),
+                    ),
+
+                  ],
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+
+                    margin: EdgeInsets.only(left:15),
+                    padding: EdgeInsets.all(6),
+                    width:70,
+                    height:25,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 3.0,
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      '밥1인분',
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
+
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left:15),
+                    padding: EdgeInsets.all(6),
+                    width:70,
+                    height:25,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 3.0,
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      '참기름 2스푼',
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
+
+                    ),
+                  ),
+
+
+
+                ],
+              )
+            ],
           ),
 
           SizedBox(
@@ -294,7 +362,7 @@ Widget getRecipeDetail(BuildContext context) {
           ),
           Text(
             '조리순서',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
           ),
 
           SizedBox(
@@ -302,42 +370,110 @@ Widget getRecipeDetail(BuildContext context) {
           ),
 
 
-          Row(
-
+          Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(right:15),
-                padding: EdgeInsets.all(8),
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(100)
 
-                ),
-                child: Text(
-                  '1',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              Row(
+
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right:15),
+                    padding: EdgeInsets.all(8),
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(100)
+
+                    ),
+                    child: Text(
+                      '1',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
                   ),
-                ),
 
+                  Text(
+                      '명란젓을 손질하여 2스푼양을 준비해주세요',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+
+
+                ],
+              ),
+              SizedBox(
+                height: 10,
               ),
 
-              Text(
-                  '명란젓을 손질하여 2스푼양을 준비해주세요'
+              Row(
+
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right:15),
+                    padding: EdgeInsets.all(8),
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(100)
+
+                    ),
+                    child: Text(
+                      '2',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                  ),
+
+                  Text(
+                      '양파는 가늘게 채 썰어주세요',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+
+
+                ],
               ),
-
-
             ],
           ),
 
           SizedBox(
             height: 20,
           ),
+
+          Text(
+              '함께먹으면 괜찮은 조합',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Column(
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: CookController.to.recommendCookList2.map((Cook cook) {
+                    return CookingCard(cook: cook);
+                  }).toList(),
+                ),
+              ),
+            ],
+
+          )
 
 
 
